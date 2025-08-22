@@ -84,6 +84,81 @@ node* insertele(node *head, int val, int k)
     return head;
 }
 
+node* deleteathead(node* head)
+{
+    node *temp=head;
+    head=head->next;
+    free(temp);
+    return head;
+}
+
+node* deleteattail(node* head)
+{
+    if(head==nullptr)return head;
+    node* temp=head;
+    while(temp->next->next!=0)
+    {
+        temp=temp->next;
+    }
+    delete temp->next;
+    temp->next=0;
+    return head;
+}
+
+node * deleteatpos(node* head, int k)
+{
+    if(head==nullptr)return head;
+    if(k==1)
+    {
+        node *temp=head;
+        head=head->next;
+        delete temp;
+        return head;
+    }
+    int cnt=0;
+    node *temp=head;
+    while(temp!=0)
+    {
+        cnt++;
+        if(cnt==k-1)
+        {
+            node *d=temp->next;
+            temp->next=temp->next->next;
+            delete d;
+            break;
+        }
+        temp=temp->next;
+    }
+    return head;
+}
+
+node *deleteval(node *head, int k)
+{
+    if(head==nullptr)return head;
+    if(head->data==k)
+    {
+        node *temp=head;
+        head=head->next;
+        delete temp;
+        return head;
+    }
+    
+    node *temp=head;
+    while(temp!=0)
+    {
+        
+        if(temp->next->data==k)
+        {
+            node *d=temp->next;
+            temp->next=temp->next->next;
+            delete d;
+            break;
+        }
+        temp=temp->next;
+    }
+    return head;
+}
+
 int main()
 {
   node *head=nullptr;
@@ -96,6 +171,7 @@ int main()
   head=insertele(head,78,13);
   head=inserattail(head,45);
   head=insertele(head,569,99);
+  head=deleteval(head,45);
   node *temp=head;
   while(temp!=0)
   {
